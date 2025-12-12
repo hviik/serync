@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LandingPage } from "@/pages/LandingPage";
+import { WaitlistPage } from "@/pages/WaitlistPage";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { SignupPage } from "@/pages/auth/SignupPage";
 import { CoreFeaturesPage } from "@/pages/CoreFeaturesPage";
@@ -9,7 +10,6 @@ import { MarketplacePage } from "@/pages/MarketplacePage";
 import { AgentDetailsPage } from "@/pages/AgentDetailsPage";
 import { DashboardLayout } from "@/components/layouts/DashboardLayout";
 import { AgentDashboard } from "@/pages/dashboard/AgentDashboard";
-
 import { SubmitAgentPage } from "@/pages/SubmitAgentPage";
 
 // Placeholder pages for now
@@ -26,7 +26,8 @@ function App() {
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-purple-500/30">
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<WaitlistPage />} />
+          <Route path="/home" element={<LandingPage />} />
           <Route path="/features" element={<CoreFeaturesPage />} />
           <Route path="/core-features" element={<CoreFeaturesPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
