@@ -26,9 +26,9 @@ const clerkAppearance = {
         formFieldInputShowPasswordButton: "!hidden",
 
         // Your existing overrides (keep them)
-        rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-auto",
-        card: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-auto",
-        form: "flex flex-row items-center justify-center gap-3 !p-0 !m-0 w-auto !overflow-visible",
+        rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-full",
+        card: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-full",
+        form: "flex flex-row items-center justify-center gap-3 !p-0 !m-0 w-full !overflow-visible",
         formFieldRow: "flex-none !p-0 !m-0 !overflow-visible",
 
         formFieldInput:

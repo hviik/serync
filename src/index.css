@@ -60,6 +60,16 @@
   }
 }
 
+/* Clerk Overrides to fix clipping */
+.cl-rootBox,
+.cl-card,
+.cl-internal-phfxlr,
+.cl-internal-1785k2u {
+  overflow: visible !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
