@@ -61,9 +61,9 @@
 }
 
 /* Clerk Overrides to fix clipping */
-/* Clerk Overrides to fix clipping - Nuclear Option */
-[class^="cl-"],
-[class*=" cl-"] {
+/* Clerk Overrides to fix clipping - Nuclear Option (Scoped to Waitlist) */
+#waitlist-wrapper [class^="cl-"],
+#waitlist-wrapper [class*=" cl-"] {
   overflow: visible !important;
   max-width: none !important;
   background-color: transparent !important;
@@ -71,22 +71,33 @@
   border: none !important;
 }
 
-.cl-rootBox {
+#waitlist-wrapper .cl-rootBox {
   width: 100% !important;
   display: flex !important;
   justify-content: center !important;
 }
 
-/* Restore Button Styling overridden by the nuclear option above */
-.cl-formButtonPrimary {
+/* Restore Button Styling overridden by the nuclear option above (Scoped) */
+#waitlist-wrapper .cl-formButtonPrimary {
   background-color: #2563eb !important;
   /* blue-600 */
   box-shadow: 0 0 15px rgba(37, 99, 235, 0.4) !important;
 }
 
-.cl-formButtonPrimary:hover {
+#waitlist-wrapper .cl-formButtonPrimary:hover {
   background-color: #3b82f6 !important;
   /* blue-500 */
+}
+
+/* Restore Input Styling overridden by nuclear option (Scoped) */
+#waitlist-wrapper .cl-formFieldInput {
+  background-color: #131b2c !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: none !important;
+}
+
+#waitlist-wrapper .cl-formFieldInput:focus {
+  border-color: rgba(59, 130, 246, 0.5) !important;
 }
 
 .material-symbols-outlined {
