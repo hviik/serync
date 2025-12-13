@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SeryncLogo } from "@/components/SeryncLogo";
 import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
@@ -26,9 +26,9 @@ const clerkAppearance = {
         formFieldInputShowPasswordButton: "!hidden",
 
         // Your existing overrides (keep them)
-        rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-full",
-        card: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-full",
-        form: "flex flex-col sm:flex-row items-center justify-center gap-3 !p-0 !m-0 w-full !overflow-visible",
+        rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-auto",
+        card: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-auto",
+        form: "flex flex-col sm:flex-row items-center justify-center gap-3 !p-0 !m-0 w-auto !overflow-visible",
         formFieldRow: "flex-none !p-0 !m-0 !overflow-visible w-full sm:w-auto",
 
         formFieldInput:
@@ -60,6 +60,8 @@ const clerkAppearance = {
 export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
     const [isHighlighted, setIsHighlighted] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const hasSeenForm = useRef(false);
 
     const handleGetAccess = () => {
         setIsHighlighted(true);
@@ -72,6 +74,7 @@ export function WaitlistPage() {
             const input = document.querySelector('input[type="email"]');
             if (input) {
                 input.setAttribute('placeholder', 'socket@tcp.com');
+                hasSeenForm.current = true;
             }
         };
 
@@ -81,6 +84,15 @@ export function WaitlistPage() {
         // Observe for changes (Clerk loads dynamically)
         const observer = new MutationObserver(() => {
             setPlaceholder();
+
+            // Check for success state (Form disappears)
+            const form = document.querySelector('.cl-form');
+            const input = document.querySelector('input[type="email"]');
+
+            // Only toggle to submitted if we previously saw the form and now it's gone
+            if (hasSeenForm.current && !form && !input) {
+                setIsSubmitted(true);
+            }
         });
 
         const formContainer = document.querySelector('.cl-rootBox') || document.body;
@@ -173,9 +185,19 @@ export function WaitlistPage() {
                                             : ""
                                             }`}
                                     >
-                                        <Waitlist
-                                            appearance={clerkAppearance}
-                                        />
+                                        {isSubmitted ? (
+                                            <div className="flex flex-col items-center justify-center py-2 px-6 animate-in fade-in zoom-in duration-500">
+                                                <div className="rounded-full bg-green-500/10 p-3 mb-3 border border-green-500/20">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"><path d="M20 6 9 17l-5-5" /></svg>
+                                                </div>
+                                                <h3 className="text-xl font-bold text-white mb-1">You're on the list!</h3>
+                                                <p className="text-gray-400 text-sm">We'll be in touch soon.</p>
+                                            </div>
+                                        ) : (
+                                            <Waitlist
+                                                appearance={clerkAppearance}
+                                            />
+                                        )}
                                     </div>
                                 </div>
 
