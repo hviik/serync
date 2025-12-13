@@ -1,90 +1,50 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { AuthLayout } from "@/components/layouts/AuthLayout";
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { SignIn } from "@clerk/clerk-react";
+import { dark } from "@clerk/themes";
 
-const loginSchema = z.object({
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
+const clerkAppearance = {
+    baseTheme: dark,
+    variables: {
+        colorPrimary: "#3b82f6",
+        colorBackground: "#131b2c",
+        colorInputBackground: "rgba(255, 255, 255, 0.05)",
+        colorInputText: "#ffffff",
+        colorText: "#ffffff",
+        colorTextSecondary: "#9ca3af",
+        borderRadius: "0.5rem",
+    },
+    elements: {
+        formButtonPrimary:
+            "bg-blue-600 hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)] font-semibold",
+        card: "bg-[#131b2c]/80 border border-white/5 backdrop-blur-xl shadow-2xl",
+        headerTitle: "text-white",
+        headerSubtitle: "text-gray-400",
+        formFieldInput:
+            "bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50",
+        formFieldLabel: "text-gray-300",
+        footerActionLink: "text-blue-400 hover:text-blue-300",
+        dividerLine: "bg-white/10",
+        dividerText: "text-gray-500",
+    },
+};
 
 export function LoginPage() {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginFormValues>({
-        resolver: zodResolver(loginSchema),
-    });
-
-    const onSubmit = async (data: LoginFormValues) => {
-        setIsLoading(true);
-        // Simulate API call
-        console.log("Login data:", data);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        setIsLoading(false);
-        // In a real app, redirect here
-    };
-
     return (
-        <AuthLayout
-            title="Welcome Back"
-            subtitle="Enter your credentials to access your agent dashboard"
-            alternativeActionText="Don't have an account?"
-            alternativeActionLink="/signup"
-            alternativeActionLabel="Sign up"
-        >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        className="glass-input"
-                        {...register("email")}
-                    />
-                    {errors.email && (
-                        <p className="text-sm text-red-400">{errors.email.message}</p>
-                    )}
-                </div>
+        <div className="min-h-screen w-full flex items-center justify-center bg-[#0B0F19] px-4">
+            {/* Background Effects */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <div className="absolute -top-[15%] -left-[5%] w-[40%] h-[40%] rounded-full bg-blue-600/8 blur-[120px] animate-pulse-slow" />
+                <div className="absolute top-[35%] -right-[5%] w-[35%] h-[35%] rounded-full bg-blue-500/6 blur-[100px] animate-pulse-medium" />
+            </div>
 
-                <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                        <Label htmlFor="password">Password</Label>
-                        <a href="#" className="text-xs text-muted-foreground hover:text-primary">Forgot password?</a>
-                    </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        className="glass-input"
-                        {...register("password")}
-                    />
-                    {errors.password && (
-                        <p className="text-sm text-red-400">{errors.password.message}</p>
-                    )}
-                </div>
-
-                <Button type="submit" className="w-full bg-white text-black hover:bg-zinc-200" disabled={isLoading}>
-                    {isLoading ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Signing in...
-                        </>
-                    ) : (
-                        "Sign In"
-                    )}
-                </Button>
-            </form>
-        </AuthLayout>
+            <div className="relative z-10">
+                <SignIn
+                    appearance={clerkAppearance}
+                    routing="path"
+                    path="/login"
+                    signUpUrl="/signup"
+                    fallbackRedirectUrl="/dashboard"
+                />
+            </div>
+        </div>
     );
 }

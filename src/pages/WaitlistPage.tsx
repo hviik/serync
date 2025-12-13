@@ -37,18 +37,18 @@ export function WaitlistPage() {
     return (
         <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
             {/* Animated Background Glow Effects */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
                 {/* Top-left blue orb - slow pulse */}
-                <div className="absolute -top-[15%] -left-[5%] w-[40%] sm:w-[35%] h-[40%] sm:h-[35%] rounded-full bg-blue-600/8 blur-[100px] sm:blur-[120px] animate-pulse-slow" />
+                <div className="absolute -top-[15%] -left-[5%] w-[40%] sm:w-[35%] h-[40%] sm:h-[35%] rounded-full bg-blue-600/10 blur-[100px] sm:blur-[120px] animate-pulse-slow" />
 
                 {/* Center-right blue orb - medium pulse */}
-                <div className="absolute top-[35%] -right-[5%] w-[35%] sm:w-[30%] h-[35%] sm:h-[30%] rounded-full bg-blue-500/6 blur-[80px] sm:blur-[100px] animate-pulse-medium" />
+                <div className="absolute top-[35%] -right-[5%] w-[35%] sm:w-[30%] h-[35%] sm:h-[30%] rounded-full bg-blue-500/8 blur-[80px] sm:blur-[100px] animate-pulse-medium" />
 
                 {/* Bottom-center purple orb - slow pulse */}
-                <div className="absolute bottom-[5%] left-[20%] w-[30%] sm:w-[25%] h-[25%] sm:h-[20%] rounded-full bg-indigo-600/5 blur-[80px] sm:blur-[100px] animate-pulse-slow" />
+                <div className="absolute bottom-[5%] left-[20%] w-[30%] sm:w-[25%] h-[25%] sm:h-[20%] rounded-full bg-indigo-600/8 blur-[80px] sm:blur-[100px] animate-pulse-slow" />
 
                 {/* Floating accent orb behind card */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] sm:w-[40%] h-[40%] sm:h-[35%] rounded-full bg-blue-500/5 blur-[100px] sm:blur-[140px] animate-pulse-glow" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] sm:w-[40%] h-[40%] sm:h-[35%] rounded-full bg-blue-500/8 blur-[100px] sm:blur-[140px] animate-pulse-glow" />
             </div>
 
             <div className="relative z-10 flex min-h-screen flex-col">
@@ -74,9 +74,9 @@ export function WaitlistPage() {
 
                         {/* Main Content Card */}
                         <main className="flex-1 flex flex-col items-center justify-center">
-                            <div className="w-full max-w-[700px] border border-white/5 bg-[#131b2c]/40 backdrop-blur-sm rounded-2xl p-6 sm:p-10 md:p-12 text-center relative overflow-hidden shadow-2xl">
+                            <div className="w-full max-w-[600px] border border-white/5 bg-[#131b2c]/40 backdrop-blur-sm rounded-2xl p-5 sm:p-8 md:p-10 text-center relative overflow-hidden shadow-2xl">
                                 {/* Gradient Badge */}
-                                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
+                                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-5">
                                     <span className="relative flex h-2 w-2">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
