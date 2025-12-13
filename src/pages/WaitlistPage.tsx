@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { SeryncLogo } from "@/components/SeryncLogo";
 import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
@@ -37,6 +38,12 @@ const clerkAppearance = {
 
 export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
+    const [isHighlighted, setIsHighlighted] = useState(false);
+
+    const handleGetAccess = () => {
+        setIsHighlighted(true);
+        setTimeout(() => setIsHighlighted(false), 1500);
+    };
 
     return (
         <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
@@ -68,11 +75,12 @@ export function WaitlistPage() {
                                     <span className="w-px h-4 bg-white/10" />
                                     <Link to="/login" className="hover:text-white transition-colors">Log In</Link>
                                 </div>
-                                <a href="#waitlist-form">
-                                    <Button className="bg-primary hover:bg-blue-600 text-white font-semibold rounded-lg h-8 px-3 text-sm transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                                        Get Access
-                                    </Button>
-                                </a>
+                                <Button
+                                    onClick={handleGetAccess}
+                                    className="bg-primary hover:bg-blue-600 text-white font-semibold rounded-lg h-8 px-3 text-sm transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]"
+                                >
+                                    Get Access
+                                </Button>
                             </div>
                         </header>
 
@@ -102,7 +110,9 @@ export function WaitlistPage() {
                                     <strong className="text-white font-medium">standardized agent workflow</strong> with a single push.
                                 </p>
 
-                                <div id="waitlist-form" className="w-full max-w-sm lg:max-w-md mx-auto mb-6 flex justify-center scroll-mt-20">
+                                <div
+                                    className={`w-full max-w-sm lg:max-w-md mx-auto mb-6 flex justify-center transition-all duration-700 ease-in-out ${isHighlighted ? 'ring-2 ring-blue-500/50 ring-offset-4 ring-offset-transparent rounded-full shadow-[0_0_40px_rgba(59,130,246,0.4)]' : ''}`}
+                                >
                                     <Waitlist appearance={clerkAppearance} />
                                 </div>
 
