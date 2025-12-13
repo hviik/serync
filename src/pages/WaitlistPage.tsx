@@ -18,29 +18,29 @@ const clerkAppearance = {
         fontSize: "0.95rem",
     },
     elements: {
-        // Remove all container styling from Clerk
+        // REMOVE ALL WRAPPER SPACING / RADIUS / HEIGHT
+        formField: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !rounded-none !overflow-visible",
+        formButtonContainer: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !rounded-none !overflow-visible",
+
+        // Completely remove Clerk-injected extra wrapper (this fixes the clipping)
+        formFieldInputShowPasswordButton: "!hidden",
+
+        // Your existing overrides (keep them)
         rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-auto",
         card: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-auto",
-
-        // Final: no width forcing, perfect center alignment
         form: "flex flex-row items-center justify-center gap-3 !p-0 !m-0 w-auto !overflow-visible",
-
-        // Critical fix: remove flex-1 expansion that caused left-shift
         formFieldRow: "flex-none !p-0 !m-0 !overflow-visible",
 
-        // Input: locked size, perfect height, clean visuals
         formFieldInput:
             "!bg-[#131b2c] !border !border-white/10 !text-white placeholder:text-gray-500 " +
-            "!h-[52px] !rounded-xl !px-4 !text-base !leading-none w-[260px] transition-all duration-200 " +
+            "!h-[52px] !rounded-xl !px-4 !text-base !leading-none w-[260px] " +
             "!m-0 !overflow-visible !shadow-none !outline-none",
 
-        // Button: same height, no clipping, no overflow
         formButtonPrimary:
             "!bg-blue-600 hover:!bg-blue-500 !text-white !font-semibold " +
             "!h-[52px] !px-8 !text-base !rounded-xl !leading-none " +
             "!overflow-visible !whitespace-nowrap !min-w-0 !m-0",
 
-        // Remove all extra UI from Clerk
         formFieldLabel: "!hidden",
         header: "!hidden",
         footer: "!hidden",
