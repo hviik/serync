@@ -4,30 +4,33 @@ import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
 import { dark } from "@clerk/themes";
 
-// Custom Clerk theme to match our dark UI
+// Custom Clerk theme to match our dark UI - inline form style
 const clerkAppearance = {
     baseTheme: dark,
     variables: {
-        colorPrimary: "#3b82f6", // blue-500
-        colorBackground: "#131b2c",
+        colorPrimary: "#3b82f6",
+        colorBackground: "transparent",
         colorInputBackground: "rgba(255, 255, 255, 0.05)",
         colorInputText: "#ffffff",
         colorText: "#ffffff",
-        colorTextSecondary: "#9ca3af",
-        borderRadius: "0.5rem",
+        colorTextSecondary: "#6b7280",
+        borderRadius: "0.75rem",
     },
     elements: {
-        formButtonPrimary:
-            "bg-blue-600 hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)] font-semibold",
-        card: "bg-transparent shadow-none",
-        headerTitle: "text-white",
-        headerSubtitle: "text-gray-400",
+        rootBox: "w-full",
+        card: "bg-transparent shadow-none p-0 gap-0",
+        form: "flex flex-row items-center gap-3",
+        formFieldRow: "flex-1",
         formFieldInput:
-            "bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20",
-        formFieldLabel: "text-gray-300",
+            "bg-[#1a2332] border border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-0 h-12 rounded-xl px-4",
+        formButtonPrimary:
+            "bg-blue-600 hover:bg-blue-500 text-white font-semibold h-12 px-6 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.3)] whitespace-nowrap",
+        formFieldLabel: "hidden",
+        header: "hidden",
+        footer: "hidden",
+        dividerRow: "hidden",
+        socialButtons: "hidden",
         footerActionLink: "text-blue-400 hover:text-blue-300",
-        dividerLine: "bg-white/10",
-        dividerText: "text-gray-500",
     },
 };
 
