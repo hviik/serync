@@ -73,7 +73,7 @@
 }
 
 #waitlist-wrapper .cl-rootBox {
-  width: 100% !important;
+  width: auto !important;
   display: flex !important;
   justify-content: center !important;
 }

@@ -168,7 +168,7 @@ export function WaitlistPage() {
                                 <div className="w-full flex justify-center mb-8">
                                     <div
                                         id="waitlist-wrapper"
-                                        className={`inline-flex flex-col sm:flex-row items-center justify-center rounded-xl transition-all duration-700 w-full sm:w-auto ${isHighlighted
+                                        className={`inline-flex flex-col sm:flex-row items-center justify-center rounded-xl transition-all duration-700 w-full sm:w-auto p-1.5 ${isHighlighted
                                             ? "shadow-[0_0_60px_rgba(59,130,246,0.5)] bg-blue-500/5 ring-1 ring-blue-500/20"
                                             : ""
                                             }`}
