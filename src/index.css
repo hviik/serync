@@ -77,6 +77,18 @@
   justify-content: center !important;
 }
 
+/* Restore Button Styling overridden by the nuclear option above */
+.cl-formButtonPrimary {
+  background-color: #2563eb !important;
+  /* blue-600 */
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.4) !important;
+}
+
+.cl-formButtonPrimary:hover {
+  background-color: #3b82f6 !important;
+  /* blue-500 */
+}
+
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,

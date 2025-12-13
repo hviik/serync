@@ -13,7 +13,10 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} waitlistUrl="/">
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      waitlistUrl="/"
+    >
       <App />
     </ClerkProvider>
   </StrictMode>,

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SeryncLogo } from "@/components/SeryncLogo";
 import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
@@ -65,6 +65,35 @@ export function WaitlistPage() {
         setIsHighlighted(true);
         setTimeout(() => setIsHighlighted(false), 1500);
     };
+
+    // DOM Hack to force placeholder - Clerk doesn't support localization for this yet
+    useEffect(() => {
+        const setPlaceholder = () => {
+            const input = document.querySelector('input[type="email"]');
+            if (input) {
+                input.setAttribute('placeholder', 'socket@tcp.com');
+            }
+        };
+
+        // Try immediately
+        setPlaceholder();
+
+        // Observe for changes (Clerk loads dynamically)
+        const observer = new MutationObserver(() => {
+            setPlaceholder();
+        });
+
+        const formContainer = document.querySelector('.cl-rootBox') || document.body;
+
+        if (formContainer) {
+            observer.observe(formContainer, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
@@ -136,11 +165,17 @@ export function WaitlistPage() {
                                 </p>
 
                                 {/* WAITLIST FORM */}
-                                <div
-                                    className={`w-full flex justify-center mb-6 transition-all duration-700 ${isHighlighted ? "shadow-[0_0_40px_rgba(59,130,246,0.4)]" : ""
-                                        }`}
-                                >
-                                    <Waitlist appearance={clerkAppearance} />
+                                <div className="w-full flex justify-center mb-8">
+                                    <div
+                                        className={`inline-flex items-center justify-center rounded-xl transition-all duration-700 ${isHighlighted
+                                                ? "shadow-[0_0_60px_rgba(59,130,246,0.5)] bg-blue-500/5 ring-1 ring-blue-500/20"
+                                                : ""
+                                            }`}
+                                    >
+                                        <Waitlist
+                                            appearance={clerkAppearance}
+                                        />
+                                    </div>
                                 </div>
 
                                 <p className="text-sm text-gray-500">
