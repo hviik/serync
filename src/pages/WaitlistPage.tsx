@@ -137,7 +137,7 @@ export function WaitlistPage() {
 
                                 {/* WAITLIST FORM */}
                                 <div
-                                    className={`flex justify-center mb-6 transition-all duration-700 ${isHighlighted ? "shadow-[0_0_40px_rgba(59,130,246,0.4)]" : ""
+                                    className={`w-full flex justify-center mb-6 transition-all duration-700 ${isHighlighted ? "shadow-[0_0_40px_rgba(59,130,246,0.4)]" : ""
                                         }`}
                                 >
                                     <Waitlist appearance={clerkAppearance} />

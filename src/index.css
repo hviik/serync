@@ -61,13 +61,17 @@
 }
 
 /* Clerk Overrides to fix clipping */
-.cl-rootBox,
-.cl-card,
-.cl-internal-phfxlr,
-.cl-internal-1785k2u {
+/* Clerk Overrides to fix clipping - Nuclear Option */
+[class^="cl-"],
+[class*=" cl-"] {
   overflow: visible !important;
-  width: 100% !important;
   max-width: none !important;
+}
+
+.cl-rootBox {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 
 .material-symbols-outlined {
