@@ -164,36 +164,36 @@
   animation: pulse-glow 10s ease-in-out infinite;
 }
 
-/* Confetti Animation */
-@keyframes confetti-fall {
+/* Confetti Burst Animation - from center, smooth fall */
+@keyframes confetti-burst {
   0% {
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    transform: translateY(-20px) translateX(calc(var(--drift) * 0.2)) rotate(45deg) scale(1);
     opacity: 1;
   }
 
-  25% {
-    transform: translateY(25vh) rotate(180deg) scale(0.9);
+  40% {
+    transform: translateY(80px) translateX(calc(var(--drift) * 0.6)) rotate(180deg) scale(1);
     opacity: 1;
   }
 
-  50% {
-    transform: translateY(50vh) rotate(360deg) scale(0.8);
-    opacity: 0.9;
-  }
-
-  75% {
-    transform: translateY(75vh) rotate(540deg) scale(0.6);
-    opacity: 0.6;
+  70% {
+    transform: translateY(200px) translateX(calc(var(--drift) * 0.9)) rotate(300deg) scale(0.9);
+    opacity: 0.8;
   }
 
   100% {
-    transform: translateY(100vh) rotate(720deg) scale(0.4);
+    transform: translateY(350px) translateX(var(--drift)) rotate(400deg) scale(0.7);
     opacity: 0;
   }
 }
 
-.animate-confetti {
-  animation: confetti-fall ease-out forwards;
+.animate-confetti-burst {
+  animation: confetti-burst cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Checkmark Draw Animation */

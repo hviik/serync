@@ -9,11 +9,13 @@ import { dark } from "@clerk/themes";
 interface ConfettiParticle {
     id: number;
     x: number;
+    y: number;
     color: string;
     delay: number;
     duration: number;
     rotation: number;
     size: number;
+    drift: number;
 }
 
 function Confetti({ active }: { active: boolean }) {
@@ -23,7 +25,7 @@ function Confetti({ active }: { active: boolean }) {
         if (active) {
             const colors = [
                 '#3b82f6', '#60a5fa', '#93c5fd', // Blues
-                '#8b5cf6', '#a78bfa', // Purples
+                '#8b5cf6', '#a78bfa', // Purples  
                 '#22c55e', '#4ade80', // Greens
                 '#f59e0b', '#fbbf24', // Golds
                 '#ec4899', '#f472b6', // Pinks
@@ -31,21 +33,26 @@ function Confetti({ active }: { active: boolean }) {
             ];
 
             const newParticles: ConfettiParticle[] = [];
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 50; i++) {
+                // Spread from center with some variance
+                const angle = (Math.random() * Math.PI * 2);
+                const spread = 15 + Math.random() * 20; // How far from center
                 newParticles.push({
                     id: i,
-                    x: Math.random() * 100,
+                    x: 50 + Math.cos(angle) * spread, // Center is 50%
+                    y: 45 + Math.sin(angle) * 10, // Slightly above center
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    delay: Math.random() * 0.5,
-                    duration: 2 + Math.random() * 2,
+                    delay: Math.random() * 0.3,
+                    duration: 2.5 + Math.random() * 1.5,
                     rotation: Math.random() * 360,
-                    size: 6 + Math.random() * 8,
+                    size: 3 + Math.random() * 3, // Smaller: 3-6px
+                    drift: -30 + Math.random() * 60, // Horizontal drift
                 });
             }
             setParticles(newParticles);
 
             // Clean up after animation
-            const timer = setTimeout(() => setParticles([]), 4000);
+            const timer = setTimeout(() => setParticles([]), 4500);
             return () => clearTimeout(timer);
         }
     }, [active]);
@@ -57,18 +64,18 @@ function Confetti({ active }: { active: boolean }) {
             {particles.map((particle) => (
                 <div
                     key={particle.id}
-                    className="absolute animate-confetti"
+                    className="absolute animate-confetti-burst"
                     style={{
                         left: `${particle.x}%`,
-                        top: '-20px',
+                        top: `${particle.y}%`,
                         width: `${particle.size}px`,
-                        height: `${particle.size}px`,
+                        height: `${particle.size * 1.8}px`, // Oval petal shape
                         backgroundColor: particle.color,
-                        borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                        borderRadius: '50%', // Smooth oval
                         transform: `rotate(${particle.rotation}deg)`,
                         animationDelay: `${particle.delay}s`,
                         animationDuration: `${particle.duration}s`,
-                        boxShadow: `0 0 6px ${particle.color}`,
+                        ['--drift' as string]: `${particle.drift}px`,
                     }}
                 />
             ))}
