@@ -28,26 +28,26 @@ const clerkAppearance = {
         // Your existing overrides (keep them)
         rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-full",
         card: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-full",
-        form: "flex flex-row items-center justify-center gap-3 !p-0 !m-0 w-full !overflow-visible",
-        formFieldRow: "flex-none !p-0 !m-0 !overflow-visible",
+        form: "flex flex-col sm:flex-row items-center justify-center gap-3 !p-0 !m-0 w-full !overflow-visible",
+        formFieldRow: "flex-none !p-0 !m-0 !overflow-visible w-full sm:w-auto",
 
         formFieldInput:
             "!bg-[#131b2c] !border !border-white/10 !text-white placeholder:text-gray-500 " +
-            "!h-[48px] !rounded-xl !px-4 !text-base !leading-none w-[360px] " +
+            "!h-[48px] !rounded-xl !px-4 !text-base !leading-none w-full sm:w-[360px] " +
             "!m-0 !overflow-visible !shadow-none !outline-none",
 
         formFieldInputWrapper:
             "!p-0 !m-0 !border-0 !shadow-none !bg-transparent " +
-            "!rounded-none !overflow-visible !h-auto !w-auto !leading-none",
+            "!rounded-none !overflow-visible !h-auto !w-auto !leading-none w-full sm:w-auto",
 
         formButton:
             "!p-0 !m-0 !border-0 !shadow-none !bg-transparent " +
-            "!rounded-none !overflow-visible !h-auto !w-auto !leading-none",
+            "!rounded-none !overflow-visible !h-auto !w-auto !leading-none w-full sm:w-auto",
 
         formButtonPrimary:
             "!bg-blue-600 hover:!bg-blue-500 !text-white !font-semibold " +
             "!h-[48px] !px-6 !text-base !rounded-xl !leading-none " +
-            "!overflow-visible !whitespace-nowrap !min-w-0 !m-0",
+            "!overflow-visible !whitespace-nowrap w-full sm:!min-w-0 sm:w-auto !m-0",
 
         formFieldLabel: "!hidden",
         header: "!hidden",
@@ -168,7 +168,7 @@ export function WaitlistPage() {
                                 <div className="w-full flex justify-center mb-8">
                                     <div
                                         id="waitlist-wrapper"
-                                        className={`inline-flex items-center justify-center rounded-xl transition-all duration-700 ${isHighlighted
+                                        className={`inline-flex flex-col sm:flex-row items-center justify-center rounded-xl transition-all duration-700 w-full sm:w-auto ${isHighlighted
                                             ? "shadow-[0_0_60px_rgba(59,130,246,0.5)] bg-blue-500/5 ring-1 ring-blue-500/20"
                                             : ""
                                             }`}
