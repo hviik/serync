@@ -64,17 +64,21 @@ export function WaitlistPage() {
                                     <span className="w-px h-4 bg-white/10" />
                                     <Link to="/login" className="hover:text-white transition-colors">Log In</Link>
                                 </div>
-                                <Link to="/signup">
+                                <a href="#waitlist-form">
                                     <Button className="bg-primary hover:bg-blue-600 text-white font-semibold rounded-lg h-8 px-3 text-sm transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                                         Get Access
                                     </Button>
-                                </Link>
+                                </a>
                             </div>
                         </header>
 
                         {/* Main Content Card */}
                         <main className="flex-1 flex flex-col items-center justify-center">
-                            <div className="w-full max-w-[600px] border border-white/5 bg-[#131b2c]/40 backdrop-blur-sm rounded-2xl p-5 sm:p-8 md:p-10 text-center relative overflow-hidden shadow-2xl">
+                            <div className="w-full max-w-[600px] lg:max-w-[750px] xl:max-w-[850px] border border-white/5 bg-[#131b2c]/40 backdrop-blur-sm rounded-2xl p-5 sm:p-8 md:p-10 lg:p-12 text-center relative overflow-hidden shadow-2xl">
+                                {/* Centered pulsating star/glow effect */}
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full bg-blue-500/15 blur-[60px] sm:blur-[80px] animate-pulse-glow" />
+                                </div>
                                 {/* Gradient Badge */}
                                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-5">
                                     <span className="relative flex h-2 w-2">
@@ -94,7 +98,7 @@ export function WaitlistPage() {
                                     <strong className="text-white font-medium">standardized agent workflow</strong> with a single push.
                                 </p>
 
-                                <div className="w-full max-w-sm mx-auto mb-6 flex justify-center">
+                                <div id="waitlist-form" className="w-full max-w-sm lg:max-w-md mx-auto mb-6 flex justify-center scroll-mt-20">
                                     <Waitlist appearance={clerkAppearance} />
                                 </div>
 
