@@ -140,32 +140,40 @@ export function WaitlistPage() {
         setTimeout(() => setIsHighlighted(false), 1500);
     };
 
-    // Track form submission and trigger success state
+    // Track form state and trigger success when Clerk removes the form
     useEffect(() => {
+        // Skip if already submitted
+        if (isSubmitted) return;
+
         let pollInterval: ReturnType<typeof setInterval> | null = null;
 
-        const setPlaceholder = () => {
-            const input = document.querySelector('#waitlist-wrapper input[type="email"]') as HTMLInputElement;
+        const checkAndTrigger = () => {
+            const wrapper = document.getElementById('waitlist-wrapper');
+            if (!wrapper) return;
+
+            const input = wrapper.querySelector('input[type="email"]');
+            const button = wrapper.querySelector('button');
+
+            // Set placeholder if input exists
             if (input) {
                 input.setAttribute('placeholder', 'socket@tcp.com');
                 hasSeenForm.current = true;
             }
-        };
 
-        const checkFormRemoved = () => {
-            const wrapper = document.getElementById('waitlist-wrapper');
-            if (!wrapper) return false;
+            // Check for Clerk's "already on waitlist" message
+            const text = wrapper.textContent?.toLowerCase() || '';
+            const hasAlreadyRegistered =
+                text.includes('already on the waitlist') ||
+                text.includes("you're already on") ||
+                text.includes('you have been added');
 
-            const input = wrapper.querySelector('input[type="email"]');
-            const button = wrapper.querySelector('.cl-formButtonPrimary');
+            // Success conditions:
+            // 1. We previously saw the form AND it's now gone (no input AND no button)
+            // 2. OR we see "already registered" text from Clerk
+            const formIsGone = hasSeenForm.current && !input && !button;
 
-            // Form is gone if we previously saw it AND now input/button are missing
-            return hasSeenForm.current && !input && !button;
-        };
-
-        const triggerSuccess = () => {
-            if (!isSubmitted) {
-                console.log('[Waitlist] Success detected - triggering confetti!');
+            if (formIsGone || hasAlreadyRegistered) {
+                console.log('[Waitlist] Triggering success!', { formIsGone, hasAlreadyRegistered, hasSeenForm: hasSeenForm.current });
                 setIsSubmitted(true);
                 setShowConfetti(true);
                 if (pollInterval) {
@@ -175,77 +183,13 @@ export function WaitlistPage() {
             }
         };
 
-        const handleButtonClick = () => {
-            console.log('[Waitlist] Submit button clicked');
+        // Start polling immediately and continuously
+        pollInterval = setInterval(checkAndTrigger, 200);
 
-            // Start polling to detect when form is removed
-            pollInterval = setInterval(() => {
-                if (checkFormRemoved()) {
-                    console.log('[Waitlist] Form removed after submission');
-                    triggerSuccess();
-                }
-            }, 100);
-
-            // Stop polling after 10 seconds (timeout)
-            setTimeout(() => {
-                if (pollInterval) {
-                    clearInterval(pollInterval);
-                    pollInterval = null;
-                }
-            }, 10000);
-        };
-
-        // Also add MutationObserver as backup for "already on waitlist" text
-        const observer = new MutationObserver(() => {
-            setPlaceholder();
-
-            // Check for Clerk's built-in success/already registered messages
-            const wrapper = document.getElementById('waitlist-wrapper');
-            if (!wrapper) return;
-
-            const text = wrapper.textContent?.toLowerCase() || '';
-            const hasSuccessMessage =
-                text.includes('already on the waitlist') ||
-                text.includes('you\'re already on') ||
-                text.includes('you have been added') ||
-                text.includes('on the waitlist');
-
-            // If we see success text OR form removed, trigger success
-            if ((hasSuccessMessage || checkFormRemoved()) && !isSubmitted) {
-                triggerSuccess();
-            }
-
-            // Attach click listener to button (re-attach on DOM changes)
-            const submitBtn = wrapper.querySelector('.cl-formButtonPrimary');
-            if (submitBtn && !submitBtn.hasAttribute('data-listener-attached')) {
-                submitBtn.setAttribute('data-listener-attached', 'true');
-                submitBtn.addEventListener('click', handleButtonClick);
-            }
-        });
-
-        // Initial setup
-        setPlaceholder();
-
-        // Attach observer
-        const wrapper = document.getElementById('waitlist-wrapper');
-        if (wrapper) {
-            observer.observe(wrapper, {
-                childList: true,
-                subtree: true,
-                characterData: true,
-                attributes: true
-            });
-
-            // Initial button listener attachment
-            const submitBtn = wrapper.querySelector('.cl-formButtonPrimary');
-            if (submitBtn && !submitBtn.hasAttribute('data-listener-attached')) {
-                submitBtn.setAttribute('data-listener-attached', 'true');
-                submitBtn.addEventListener('click', handleButtonClick);
-            }
-        }
+        // Also check immediately
+        checkAndTrigger();
 
         return () => {
-            observer.disconnect();
             if (pollInterval) clearInterval(pollInterval);
         };
     }, [isSubmitted]);
