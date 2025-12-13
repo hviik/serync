@@ -22,12 +22,20 @@ function Confetti({ active }: { active: boolean }) {
     useEffect(() => {
         if (active) {
             const colors = [
-                '#3b82f6', '#60a5fa', '#93c5fd', // Blues
-                '#8b5cf6', '#a78bfa', // Purples
-                '#22c55e', '#4ade80', // Greens
-                '#f59e0b', '#fbbf24', // Golds
-                '#ec4899', '#f472b6', // Pinks
-                '#ffffff', // White
+                "#fafafa", // Polished Pearl
+                "#ededed", // Satin Silver
+                "#c7c7c7", // Brushed Aluminum
+                "#a3a3a3", // Stainless Steel
+                "#7c7c7c", // Gunmetal
+                "#e5e7eb", // Silver Gray
+                "#d1d5db", // Light Silver
+                "#9ca3af", // Platinum Gray
+                "#6b7280", // Cool Graphite
+                "#4b5563", // Dark Graphite
+                "#374151", // Charcoal Gray
+                "#1f2937", // Deep Charcoal
+                "#111827", // Blackened Navy (very elegant)
+                "#000000", // True Black
             ];
 
             const newParticles: ConfettiParticle[] = [];
