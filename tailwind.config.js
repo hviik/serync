@@ -49,9 +49,8 @@ export default {
                 "text-muted-dark": "#92a4c9",
             },
             fontFamily: {
-                "display": ["Space Grotesk", "sans-serif"],
-                // Keep default sans for other uses if needed, or override
-                sans: ["Space Grotesk", "sans-serif"],
+                sans: ["Inter", "system-ui", "sans-serif"],
+                display: ["Inter", "system-ui", "sans-serif"],
             },
             borderRadius: {
                 lg: `var(--radius)`,
