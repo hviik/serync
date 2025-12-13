@@ -35,9 +35,9 @@ export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <div className="relative h-screen w-full overflow-hidden bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
+        <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
             {/* Animated Background Glow Effects */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                 {/* Top-left blue orb - slow pulse */}
                 <div className="absolute -top-[15%] -left-[5%] w-[40%] sm:w-[35%] h-[40%] sm:h-[35%] rounded-full bg-blue-600/8 blur-[100px] sm:blur-[120px] animate-pulse-slow" />
 
@@ -51,7 +51,7 @@ export function WaitlistPage() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] sm:w-[40%] h-[40%] sm:h-[35%] rounded-full bg-blue-500/5 blur-[100px] sm:blur-[140px] animate-pulse-glow" />
             </div>
 
-            <div className="relative z-10 flex h-full flex-col">
+            <div className="relative z-10 flex min-h-screen flex-col">
                 <div className="flex flex-1 justify-center px-4 sm:px-6 md:px-12 lg:px-20 py-4">
                     <div className="flex w-full max-w-[1100px] flex-1 flex-col">
                         {/* Floating Glass Navbar */}
