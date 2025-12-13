@@ -150,35 +150,50 @@ export function WaitlistPage() {
             }
         };
 
+        const checkForSuccess = () => {
+            const wrapper = document.getElementById('waitlist-wrapper');
+            if (!wrapper) return;
+
+            // Look for Clerk's success messages (various states)
+            const clerkContent = wrapper.textContent?.toLowerCase() || '';
+            const hasSuccessText =
+                clerkContent.includes('on the waitlist') ||
+                clerkContent.includes("you're on the list") ||
+                clerkContent.includes('already on') ||
+                clerkContent.includes('you have been added');
+
+            // Also check if form is gone (Clerk replaces form with success message)
+            const form = wrapper.querySelector('.cl-form');
+            const input = wrapper.querySelector('input[type="email"]');
+            const formGone = hasSeenForm.current && !form && !input;
+
+            if ((hasSuccessText || formGone) && !isSubmitted) {
+                setIsSubmitted(true);
+                setShowConfetti(true);
+            }
+        };
+
         // Try immediately
         setPlaceholder();
 
         // Observe for changes (Clerk loads dynamically)
         const observer = new MutationObserver(() => {
             setPlaceholder();
-
-            // Check for success state (Form disappears)
-            const form = document.querySelector('.cl-form');
-            const input = document.querySelector('input[type="email"]');
-
-            // Only toggle to submitted if we previously saw the form and now it's gone
-            if (hasSeenForm.current && !form && !input && !isSubmitted) {
-                setIsSubmitted(true);
-                setShowConfetti(true);
-            }
+            checkForSuccess();
         });
 
-        const formContainer = document.querySelector('.cl-rootBox') || document.body;
+        const formContainer = document.getElementById('waitlist-wrapper') || document.body;
 
         if (formContainer) {
             observer.observe(formContainer, {
                 childList: true,
-                subtree: true
+                subtree: true,
+                characterData: true
             });
         }
 
         return () => observer.disconnect();
-    }, []);
+    }, [isSubmitted]);
 
     return (
         <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
