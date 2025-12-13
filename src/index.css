@@ -67,3 +67,58 @@
     'GRAD' 0,
     'opsz' 24
 }
+
+/* Animated Glow Keyframes */
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-medium {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.animate-pulse-medium {
+  animation: pulse-medium 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 10s ease-in-out infinite;
+}

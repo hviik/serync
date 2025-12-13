@@ -2,16 +2,53 @@ import { Link } from "react-router-dom";
 import { SeryncLogo } from "@/components/SeryncLogo";
 import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
+import { dark } from "@clerk/themes";
+
+// Custom Clerk theme to match our dark UI
+const clerkAppearance = {
+    baseTheme: dark,
+    variables: {
+        colorPrimary: "#3b82f6", // blue-500
+        colorBackground: "#131b2c",
+        colorInputBackground: "rgba(255, 255, 255, 0.05)",
+        colorInputText: "#ffffff",
+        colorText: "#ffffff",
+        colorTextSecondary: "#9ca3af",
+        borderRadius: "0.5rem",
+    },
+    elements: {
+        formButtonPrimary:
+            "bg-blue-600 hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)] font-semibold",
+        card: "bg-transparent shadow-none",
+        headerTitle: "text-white",
+        headerSubtitle: "text-gray-400",
+        formFieldInput:
+            "bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20",
+        formFieldLabel: "text-gray-300",
+        footerActionLink: "text-blue-400 hover:text-blue-300",
+        dividerLine: "bg-white/10",
+        dividerText: "text-gray-500",
+    },
+};
 
 export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
-            {/* Background Effects */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/10 blur-[120px]" />
-                <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-blue-900/10 blur-[120px]" />
+            {/* Animated Background Glow Effects */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                {/* Top-left blue orb - slow pulse */}
+                <div className="absolute -top-[15%] -left-[5%] w-[40%] sm:w-[35%] h-[40%] sm:h-[35%] rounded-full bg-blue-600/8 blur-[100px] sm:blur-[120px] animate-pulse-slow" />
+
+                {/* Center-right blue orb - medium pulse */}
+                <div className="absolute top-[35%] -right-[5%] w-[35%] sm:w-[30%] h-[35%] sm:h-[30%] rounded-full bg-blue-500/6 blur-[80px] sm:blur-[100px] animate-pulse-medium" />
+
+                {/* Bottom-center purple orb - slow pulse */}
+                <div className="absolute bottom-[5%] left-[20%] w-[30%] sm:w-[25%] h-[25%] sm:h-[20%] rounded-full bg-indigo-600/5 blur-[80px] sm:blur-[100px] animate-pulse-slow" />
+
+                {/* Floating accent orb behind card */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] sm:w-[40%] h-[40%] sm:h-[35%] rounded-full bg-blue-500/5 blur-[100px] sm:blur-[140px] animate-pulse-glow" />
             </div>
 
             <div className="relative z-10 flex h-full flex-col">
@@ -58,7 +95,7 @@ export function WaitlistPage() {
                                 </p>
 
                                 <div className="w-full max-w-sm mx-auto mb-6 flex justify-center">
-                                    <Waitlist />
+                                    <Waitlist appearance={clerkAppearance} />
                                 </div>
 
                                 <p className="text-xs sm:text-sm text-gray-500 font-medium">
