@@ -18,21 +18,29 @@ const clerkAppearance = {
         fontSize: "0.95rem",
     },
     elements: {
-        rootBox: "!p-0 !m-0 !border-0 !shadow-none !bg-transparent w-full flex justify-center !overflow-visible",
-        card: "!bg-transparent !shadow-none !p-0 !m-0 !border-0 !gap-0 w-full flex justify-center !overflow-visible",
-        form: "flex flex-row items-center gap-3 w-full max-w-2xl justify-center !m-0 !p-0 !overflow-visible",
-        formFieldRow: "flex-1 min-w-0 max-w-md !m-0 !overflow-visible",
+        rootBox:
+            "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible flex justify-center w-auto",
+        card:
+            "!p-0 !m-0 !border-0 !shadow-none !bg-transparent !overflow-visible w-auto",
+        form:
+            "flex flex-row items-center justify-center gap-3 !p-0 !m-0 w-auto !overflow-visible",
+        formFieldRow:
+            "flex-1 min-w-[250px] !m-0 !p-0 !overflow-visible",
         formFieldInput:
-            "!bg-[#131b2c] !border !border-white/10 !text-white placeholder:text-gray-500 focus:!border-blue-500/50 focus:!ring-1 focus:!ring-blue-500/20 !h-[52px] !rounded-xl !px-4 !text-base w-full transition-all duration-200 !m-0 !overflow-visible",
+            "!bg-[#131b2c] !border !border-white/10 !text-white placeholder:text-gray-500 " +
+            "!h-[52px] !rounded-xl !px-4 !text-base !leading-none w-full transition-all duration-200 " +
+            "!m-0 !overflow-visible !shadow-none !outline-none",
         formButtonPrimary:
-            "!bg-blue-600 hover:!bg-blue-500 !text-white !font-semibold !h-[52px] !px-8 !rounded-xl !shadow-[0_0_15px_rgba(37,99,235,0.3)] !whitespace-nowrap !text-base !m-0 !overflow-visible",
+            "!bg-blue-600 hover:!bg-blue-500 !text-white !font-semibold " +
+            "!h-[52px] !px-8 !text-base !rounded-xl !shadow-none !leading-none " +
+            "!overflow-visible !whitespace-nowrap !min-w-0 !m-0",
         formFieldLabel: "!hidden",
         header: "!hidden",
         footer: "!hidden",
         dividerRow: "!hidden",
         socialButtons: "!hidden",
-        footerActionLink: "text-blue-400 hover:text-blue-300",
-    },
+    }
+    ,
 };
 
 export function WaitlistPage() {
