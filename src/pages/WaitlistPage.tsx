@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { SeryncLogo } from "@/components/SeryncLogo";
 import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
@@ -130,74 +130,40 @@ const clerkAppearance = {
 
 export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
+    const [searchParams] = useSearchParams();
     const [isHighlighted, setIsHighlighted] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
-    const hasSeenForm = useRef(false);
+
+    // Check if user just joined the waitlist (redirected with success param)
+    const isSuccess = searchParams.get('success') === 'true';
 
     const handleGetAccess = () => {
         setIsHighlighted(true);
         setTimeout(() => setIsHighlighted(false), 1500);
     };
 
-    // Track form state and trigger success when Clerk removes the form
+    // Trigger confetti when success is detected
     useEffect(() => {
-        // Skip if already submitted
-        if (isSubmitted) return;
+        if (isSuccess && !showConfetti) {
+            setShowConfetti(true);
+        }
+    }, [isSuccess, showConfetti]);
 
-        let pollInterval: ReturnType<typeof setInterval> | null = null;
-
-        const checkAndTrigger = () => {
-            const wrapper = document.getElementById('waitlist-wrapper');
-            if (!wrapper) return;
-
-            const input = wrapper.querySelector('input[type="email"]');
-            const button = wrapper.querySelector('button');
-
-            // Set placeholder if input exists
+    // Set custom placeholder for Clerk input
+    useEffect(() => {
+        const setPlaceholder = () => {
+            const input = document.querySelector('#waitlist-wrapper input[type="email"]');
             if (input) {
                 input.setAttribute('placeholder', 'socket@tcp.com');
-                if (!hasSeenForm.current) {
-                    console.log('[Waitlist] Form detected!');
-                    hasSeenForm.current = true;
-                }
-            }
-
-            // Check for Clerk's "already on waitlist" message
-            const text = wrapper.textContent?.toLowerCase() || '';
-            const hasAlreadyRegistered =
-                text.includes('already on the waitlist') ||
-                text.includes("you're already on") ||
-                text.includes('you have been added');
-
-            // Success conditions:
-            // 1. We previously saw the form AND it's now gone (no input AND no button)
-            // 2. OR we see "already registered" text from Clerk
-            const formIsGone = hasSeenForm.current && !input && !button;
-
-            if (formIsGone || hasAlreadyRegistered) {
-                console.log('[Waitlist] Triggering success!', { formIsGone, hasAlreadyRegistered, hasSeenForm: hasSeenForm.current });
-                setIsSubmitted(true);
-                setShowConfetti(true);
-                if (pollInterval) {
-                    clearInterval(pollInterval);
-                    pollInterval = null;
-                }
             }
         };
 
-        // Start polling immediately at 100ms interval
-        pollInterval = setInterval(checkAndTrigger, 100);
+        setPlaceholder();
+        const interval = setInterval(setPlaceholder, 500);
+        setTimeout(() => clearInterval(interval), 5000);
 
-        // Also check immediately and after delays
-        checkAndTrigger();
-        setTimeout(checkAndTrigger, 500);
-        setTimeout(checkAndTrigger, 1000);
-
-        return () => {
-            if (pollInterval) clearInterval(pollInterval);
-        };
-    }, [isSubmitted]);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
@@ -280,7 +246,7 @@ export function WaitlistPage() {
                                             : ""
                                             }`}
                                     >
-                                        {isSubmitted ? (
+                                        {isSuccess ? (
                                             <div className="flex flex-col items-center justify-center py-6 px-8 animate-in fade-in zoom-in duration-500">
                                                 {/* Animated Checkmark */}
                                                 <div className="relative mb-4">
@@ -306,6 +272,7 @@ export function WaitlistPage() {
                                         ) : (
                                             <Waitlist
                                                 appearance={clerkAppearance}
+                                                afterJoinWaitlistUrl="/?success=true"
                                             />
                                         )}
                                     </div>
