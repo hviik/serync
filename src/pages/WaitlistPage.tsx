@@ -33,7 +33,7 @@ const clerkAppearance = {
 
         formFieldInput:
             "!bg-[#131b2c] !border !border-white/10 !text-white placeholder:text-gray-500 " +
-            "!h-[52px] !rounded-xl !px-4 !text-base !leading-none w-[260px] " +
+            "!h-[48px] !rounded-xl !px-4 !text-base !leading-none w-[260px] " +
             "!m-0 !overflow-visible !shadow-none !outline-none",
 
         formFieldInputWrapper:
@@ -46,7 +46,7 @@ const clerkAppearance = {
 
         formButtonPrimary:
             "!bg-blue-600 hover:!bg-blue-500 !text-white !font-semibold " +
-            "!h-[52px] !px-8 !text-base !rounded-xl !leading-none " +
+            "!h-[48px] !px-6 !text-base !rounded-xl !leading-none " +
             "!overflow-visible !whitespace-nowrap !min-w-0 !m-0",
 
         formFieldLabel: "!hidden",

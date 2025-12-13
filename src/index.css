@@ -66,6 +66,9 @@
 [class*=" cl-"] {
   overflow: visible !important;
   max-width: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .cl-rootBox {
