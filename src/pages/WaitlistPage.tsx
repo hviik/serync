@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
 import { dark } from "@clerk/themes";
 
-// Custom Clerk theme to match our dark UI - inline form style
 const clerkAppearance = {
     baseTheme: dark,
     variables: {
@@ -19,9 +18,9 @@ const clerkAppearance = {
         fontSize: "0.95rem",
     },
     elements: {
-        rootBox: "w-full max-w-xl overflow-visible",
-        card: "bg-transparent shadow-none p-0 gap-2 overflow-visible",
-        form: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full overflow-visible",
+        rootBox: "w-full max-w-xl overflow-visible flex justify-center",
+        card: "bg-transparent shadow-none p-0 gap-2 overflow-visible w-full flex justify-center",
+        form: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-2xl overflow-visible justify-center",
         formFieldRow: "flex-1 min-w-0 overflow-visible",
         formFieldInput:
             "bg-[#131b2c] border border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 h-12 rounded-lg px-4 text-sm w-full transition-all duration-200 box-border !rounded-lg",
