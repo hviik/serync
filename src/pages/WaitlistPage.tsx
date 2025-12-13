@@ -111,7 +111,7 @@ export function WaitlistPage() {
                                 </p>
 
                                 <div
-                                    className={`w-full max-w-sm lg:max-w-md mx-auto mb-6 flex justify-center transition-all duration-700 ease-in-out ${isHighlighted ? 'ring-2 ring-blue-500/50 ring-offset-4 ring-offset-transparent rounded-full shadow-[0_0_40px_rgba(59,130,246,0.4)]' : ''}`}
+                                    className={`w-full max-w-sm lg:max-w-md mx-auto mb-6 flex justify-center transition-all duration-700 ease-in-out ${isHighlighted ? 'shadow-[0_0_40px_rgba(59,130,246,0.4)]' : ''}`}
                                 >
                                     <Waitlist appearance={clerkAppearance} />
                                 </div>
