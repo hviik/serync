@@ -5,6 +5,77 @@ import { Button } from "@/components/ui/button";
 import { Waitlist } from "@clerk/clerk-react";
 import { dark } from "@clerk/themes";
 
+// Confetti Particle Component
+interface ConfettiParticle {
+    id: number;
+    x: number;
+    color: string;
+    delay: number;
+    duration: number;
+    rotation: number;
+    size: number;
+}
+
+function Confetti({ active }: { active: boolean }) {
+    const [particles, setParticles] = useState<ConfettiParticle[]>([]);
+
+    useEffect(() => {
+        if (active) {
+            const colors = [
+                '#3b82f6', '#60a5fa', '#93c5fd', // Blues
+                '#8b5cf6', '#a78bfa', // Purples
+                '#22c55e', '#4ade80', // Greens
+                '#f59e0b', '#fbbf24', // Golds
+                '#ec4899', '#f472b6', // Pinks
+                '#ffffff', // White
+            ];
+
+            const newParticles: ConfettiParticle[] = [];
+            for (let i = 0; i < 60; i++) {
+                newParticles.push({
+                    id: i,
+                    x: Math.random() * 100,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    delay: Math.random() * 0.5,
+                    duration: 2 + Math.random() * 2,
+                    rotation: Math.random() * 360,
+                    size: 6 + Math.random() * 8,
+                });
+            }
+            setParticles(newParticles);
+
+            // Clean up after animation
+            const timer = setTimeout(() => setParticles([]), 4000);
+            return () => clearTimeout(timer);
+        }
+    }, [active]);
+
+    if (!active || particles.length === 0) return null;
+
+    return (
+        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+            {particles.map((particle) => (
+                <div
+                    key={particle.id}
+                    className="absolute animate-confetti"
+                    style={{
+                        left: `${particle.x}%`,
+                        top: '-20px',
+                        width: `${particle.size}px`,
+                        height: `${particle.size}px`,
+                        backgroundColor: particle.color,
+                        borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                        transform: `rotate(${particle.rotation}deg)`,
+                        animationDelay: `${particle.delay}s`,
+                        animationDuration: `${particle.duration}s`,
+                        boxShadow: `0 0 6px ${particle.color}`,
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
 const clerkAppearance = {
     baseTheme: dark,
     variables: {
@@ -61,6 +132,7 @@ export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
     const [isHighlighted, setIsHighlighted] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
     const hasSeenForm = useRef(false);
 
     const handleGetAccess = () => {
@@ -90,8 +162,9 @@ export function WaitlistPage() {
             const input = document.querySelector('input[type="email"]');
 
             // Only toggle to submitted if we previously saw the form and now it's gone
-            if (hasSeenForm.current && !form && !input) {
+            if (hasSeenForm.current && !form && !input && !isSubmitted) {
                 setIsSubmitted(true);
+                setShowConfetti(true);
             }
         });
 
@@ -109,6 +182,9 @@ export function WaitlistPage() {
 
     return (
         <div className="relative min-h-screen w-full bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
+
+            {/* Confetti Effect */}
+            <Confetti active={showConfetti} />
 
             {/* Glow Background */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -186,12 +262,27 @@ export function WaitlistPage() {
                                             }`}
                                     >
                                         {isSubmitted ? (
-                                            <div className="flex flex-col items-center justify-center py-2 px-6 animate-in fade-in zoom-in duration-500">
-                                                <div className="rounded-full bg-green-500/10 p-3 mb-3 border border-green-500/20">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"><path d="M20 6 9 17l-5-5" /></svg>
+                                            <div className="flex flex-col items-center justify-center py-6 px-8 animate-in fade-in zoom-in duration-500">
+                                                {/* Animated Checkmark */}
+                                                <div className="relative mb-4">
+                                                    <div className="absolute inset-0 rounded-full bg-green-500/20 blur-xl animate-pulse" />
+                                                    <div className="relative rounded-full bg-gradient-to-br from-green-400 to-green-600 p-4 shadow-lg shadow-green-500/30">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white animate-check-draw">
+                                                            <path d="M20 6 9 17l-5-5" />
+                                                        </svg>
+                                                    </div>
                                                 </div>
-                                                <h3 className="text-xl font-bold text-white mb-1">You're on the list!</h3>
-                                                <p className="text-gray-400 text-sm">We'll be in touch soon.</p>
+
+                                                {/* Success Text */}
+                                                <h3 className="text-2xl font-bold text-white mb-2">
+                                                    🎉 You're on the list!
+                                                </h3>
+                                                <p className="text-gray-400 text-base mb-3">
+                                                    We'll reach out when it's your turn.
+                                                </p>
+                                                <p className="text-blue-400/80 text-sm">
+                                                    Get ready to build something amazing.
+                                                </p>
                                             </div>
                                         ) : (
                                             <Waitlist

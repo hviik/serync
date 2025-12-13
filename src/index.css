@@ -163,3 +163,52 @@
 .animate-pulse-glow {
   animation: pulse-glow 10s ease-in-out infinite;
 }
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translateY(25vh) rotate(180deg) scale(0.9);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(50vh) rotate(360deg) scale(0.8);
+    opacity: 0.9;
+  }
+
+  75% {
+    transform: translateY(75vh) rotate(540deg) scale(0.6);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti-fall ease-out forwards;
+}
+
+/* Checkmark Draw Animation */
+@keyframes check-draw {
+  0% {
+    stroke-dashoffset: 30;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-check-draw {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: check-draw 0.5s ease-out 0.3s forwards;
+}
