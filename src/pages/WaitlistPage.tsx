@@ -15,7 +15,7 @@ const clerkAppearance = {
         colorInputText: "#ffffff",
         colorText: "#ffffff",
         colorTextSecondary: "#6b7280",
-        borderRadius: "9999px",
+        borderRadius: "0.5rem",
         fontSize: "0.95rem",
     },
     elements: {
@@ -24,9 +24,9 @@ const clerkAppearance = {
         form: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full overflow-visible",
         formFieldRow: "flex-1 min-w-0 overflow-visible",
         formFieldInput:
-            "bg-[#1a2332] border border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-0 h-12 rounded-full px-5 text-sm w-full",
+            "bg-[#131b2c] border border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 h-12 rounded-lg px-4 text-sm w-full transition-all duration-200",
         formButtonPrimary:
-            "bg-blue-600 hover:bg-blue-500 text-white font-semibold h-12 px-5 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.3)] whitespace-nowrap text-sm",
+            "bg-blue-600 hover:bg-blue-500 text-white font-medium h-12 px-6 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.2)] whitespace-nowrap text-sm bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0))]",
         formFieldLabel: "hidden",
         header: "hidden",
         footer: "hidden",
