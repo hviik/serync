@@ -18,14 +18,14 @@ const clerkAppearance = {
         fontSize: "0.95rem",
     },
     elements: {
-        rootBox: "w-full max-w-xl overflow-visible flex justify-center",
-        card: "bg-transparent shadow-none p-0 gap-2 overflow-visible w-full flex justify-center",
-        form: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-2xl overflow-visible justify-center",
-        formFieldRow: "flex-1 min-w-0 overflow-visible",
+        rootBox: "!p-0 !m-0 !border-0 !shadow-none w-full flex justify-center",
+        card: "!bg-transparent !shadow-none !p-0 !m-0 !border-0 w-full flex justify-center",
+        form: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-2xl justify-center",
+        formFieldRow: "flex-1 min-w-0",
         formFieldInput:
-            "bg-[#131b2c] border border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 h-12 rounded-lg px-4 text-sm w-full transition-all duration-200 box-border !rounded-lg",
+            "bg-[#131b2c] border border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 !h-14 rounded-lg px-4 text-sm w-full transition-all duration-200 !rounded-lg",
         formButtonPrimary:
-            "bg-blue-600 hover:bg-blue-500 text-white font-medium h-12 px-6 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.2)] whitespace-nowrap text-sm bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0))] box-border !rounded-lg",
+            "bg-blue-600 hover:bg-blue-500 text-white font-medium !h-14 px-8 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.2)] whitespace-nowrap text-sm bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0))] !rounded-lg",
         formFieldLabel: "hidden",
         header: "hidden",
         footer: "hidden",
