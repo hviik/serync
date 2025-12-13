@@ -142,10 +142,12 @@ export function WaitlistPage() {
         setTimeout(() => setIsHighlighted(false), 1500);
     };
 
-    // Trigger confetti when success is detected
+    // Trigger confetti when success is detected and clean up URL
     useEffect(() => {
         if (isSuccess && !showConfetti) {
             setShowConfetti(true);
+            // Clean up URL to remove the success param
+            window.history.replaceState({}, '', '/');
         }
     }, [isSuccess, showConfetti]);
 
@@ -247,22 +249,11 @@ export function WaitlistPage() {
                                             }`}
                                     >
                                         {isSuccess ? (
-                                            <div className="flex flex-col items-center justify-center py-6 px-8 animate-in fade-in zoom-in duration-500">
-                                                {/* Animated Checkmark */}
-                                                <div className="relative mb-4">
-                                                    <div className="absolute inset-0 rounded-full bg-green-500/20 blur-xl animate-pulse" />
-                                                    <div className="relative rounded-full bg-gradient-to-br from-green-400 to-green-600 p-4 shadow-lg shadow-green-500/30">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white animate-check-draw">
-                                                            <path d="M20 6 9 17l-5-5" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-
-                                                {/* Success Text */}
-                                                <h3 className="text-2xl font-bold text-white mb-2">
-                                                    🎉 You're on the list!
+                                            <div className="flex flex-col items-center justify-center py-8 px-8 text-center animate-in fade-in zoom-in duration-500">
+                                                <h3 className="text-2xl font-bold text-white mb-3">
+                                                    You're on the list!
                                                 </h3>
-                                                <p className="text-gray-400 text-base mb-3">
+                                                <p className="text-gray-400 text-base mb-2">
                                                     We'll reach out when it's your turn.
                                                 </p>
                                                 <p className="text-blue-400/80 text-sm">
