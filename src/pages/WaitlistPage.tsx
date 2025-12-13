@@ -36,6 +36,14 @@ const clerkAppearance = {
             "!h-[52px] !rounded-xl !px-4 !text-base !leading-none w-[260px] " +
             "!m-0 !overflow-visible !shadow-none !outline-none",
 
+        formFieldInputWrapper:
+            "!p-0 !m-0 !border-0 !shadow-none !bg-transparent " +
+            "!rounded-none !overflow-visible !h-auto !w-auto !leading-none",
+
+        formButton:
+            "!p-0 !m-0 !border-0 !shadow-none !bg-transparent " +
+            "!rounded-none !overflow-visible !h-auto !w-auto !leading-none",
+
         formButtonPrimary:
             "!bg-blue-600 hover:!bg-blue-500 !text-white !font-semibold " +
             "!h-[52px] !px-8 !text-base !rounded-xl !leading-none " +
