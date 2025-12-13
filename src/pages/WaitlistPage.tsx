@@ -33,12 +33,6 @@ export function WaitlistPage() {
                             </div>
                             <div className="flex items-center justify-end gap-6">
                                 <div className="hidden items-center gap-6 md:flex text-sm font-medium text-gray-400">
-                                    <span className="cursor-pointer hover:text-white transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" x2="22" y1="12" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-                                    </span>
-                                    <span className="cursor-pointer hover:text-white transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
-                                    </span>
                                     <span className="w-px h-4 bg-white/10 mx-2" />
                                     <Link to="/login" className="hover:text-white transition-colors">Log In</Link>
                                 </div>
@@ -69,7 +63,7 @@ export function WaitlistPage() {
 
                                 <p className="text-gray-400 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
                                     Serync is the only platform that turns your local agent code into a <br className="hidden md:block" />
-                                    <strong className="text-white font-medium">monetized global API</strong> with a single push.
+                                    <strong className="text-white font-medium">standardized agent workflow</strong> with a single push.
                                 </p>
 
                                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-8">
@@ -90,7 +84,7 @@ export function WaitlistPage() {
                                 </form>
 
                                 <p className="text-sm text-gray-500 font-medium">
-                                    Trusted by 2,000+ developers shipping autonomous agents.
+                                    Awaited by developers shipping autonomous agents.
                                 </p>
                             </div>
                         </main>
@@ -100,7 +94,7 @@ export function WaitlistPage() {
                             <div className="flex gap-6 mt-4 md:mt-0">
                                 <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
                                 <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
-                                <a href="#" className="hover:text-white transition-colors">Twitter</a>
+                                <a href="#" className="hover:text-white transition-colors">X</a>
                             </div>
                         </footer>
                     </div>
