@@ -140,59 +140,114 @@ export function WaitlistPage() {
         setTimeout(() => setIsHighlighted(false), 1500);
     };
 
-    // DOM Hack to force placeholder - Clerk doesn't support localization for this yet
+    // Track form submission and trigger success state
     useEffect(() => {
+        let pollInterval: ReturnType<typeof setInterval> | null = null;
+
         const setPlaceholder = () => {
-            const input = document.querySelector('input[type="email"]');
+            const input = document.querySelector('#waitlist-wrapper input[type="email"]') as HTMLInputElement;
             if (input) {
                 input.setAttribute('placeholder', 'socket@tcp.com');
                 hasSeenForm.current = true;
             }
         };
 
-        const checkForSuccess = () => {
+        const checkFormRemoved = () => {
             const wrapper = document.getElementById('waitlist-wrapper');
-            if (!wrapper) return;
+            if (!wrapper) return false;
 
-            // Look for Clerk's success messages (various states)
-            const clerkContent = wrapper.textContent?.toLowerCase() || '';
-            const hasSuccessText =
-                clerkContent.includes('on the waitlist') ||
-                clerkContent.includes("you're on the list") ||
-                clerkContent.includes('already on') ||
-                clerkContent.includes('you have been added');
-
-            // Also check if form is gone (Clerk replaces form with success message)
-            const form = wrapper.querySelector('.cl-form');
             const input = wrapper.querySelector('input[type="email"]');
-            const formGone = hasSeenForm.current && !form && !input;
+            const button = wrapper.querySelector('.cl-formButtonPrimary');
 
-            if ((hasSuccessText || formGone) && !isSubmitted) {
+            // Form is gone if we previously saw it AND now input/button are missing
+            return hasSeenForm.current && !input && !button;
+        };
+
+        const triggerSuccess = () => {
+            if (!isSubmitted) {
+                console.log('[Waitlist] Success detected - triggering confetti!');
                 setIsSubmitted(true);
                 setShowConfetti(true);
+                if (pollInterval) {
+                    clearInterval(pollInterval);
+                    pollInterval = null;
+                }
             }
         };
 
-        // Try immediately
-        setPlaceholder();
+        const handleButtonClick = () => {
+            console.log('[Waitlist] Submit button clicked');
 
-        // Observe for changes (Clerk loads dynamically)
+            // Start polling to detect when form is removed
+            pollInterval = setInterval(() => {
+                if (checkFormRemoved()) {
+                    console.log('[Waitlist] Form removed after submission');
+                    triggerSuccess();
+                }
+            }, 100);
+
+            // Stop polling after 10 seconds (timeout)
+            setTimeout(() => {
+                if (pollInterval) {
+                    clearInterval(pollInterval);
+                    pollInterval = null;
+                }
+            }, 10000);
+        };
+
+        // Also add MutationObserver as backup for "already on waitlist" text
         const observer = new MutationObserver(() => {
             setPlaceholder();
-            checkForSuccess();
+
+            // Check for Clerk's built-in success/already registered messages
+            const wrapper = document.getElementById('waitlist-wrapper');
+            if (!wrapper) return;
+
+            const text = wrapper.textContent?.toLowerCase() || '';
+            const hasSuccessMessage =
+                text.includes('already on the waitlist') ||
+                text.includes('you\'re already on') ||
+                text.includes('you have been added') ||
+                text.includes('on the waitlist');
+
+            // If we see success text OR form removed, trigger success
+            if ((hasSuccessMessage || checkFormRemoved()) && !isSubmitted) {
+                triggerSuccess();
+            }
+
+            // Attach click listener to button (re-attach on DOM changes)
+            const submitBtn = wrapper.querySelector('.cl-formButtonPrimary');
+            if (submitBtn && !submitBtn.hasAttribute('data-listener-attached')) {
+                submitBtn.setAttribute('data-listener-attached', 'true');
+                submitBtn.addEventListener('click', handleButtonClick);
+            }
         });
 
-        const formContainer = document.getElementById('waitlist-wrapper') || document.body;
+        // Initial setup
+        setPlaceholder();
 
-        if (formContainer) {
-            observer.observe(formContainer, {
+        // Attach observer
+        const wrapper = document.getElementById('waitlist-wrapper');
+        if (wrapper) {
+            observer.observe(wrapper, {
                 childList: true,
                 subtree: true,
-                characterData: true
+                characterData: true,
+                attributes: true
             });
+
+            // Initial button listener attachment
+            const submitBtn = wrapper.querySelector('.cl-formButtonPrimary');
+            if (submitBtn && !submitBtn.hasAttribute('data-listener-attached')) {
+                submitBtn.setAttribute('data-listener-attached', 'true');
+                submitBtn.addEventListener('click', handleButtonClick);
+            }
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            if (pollInterval) clearInterval(pollInterval);
+        };
     }, [isSubmitted]);
 
     return (
