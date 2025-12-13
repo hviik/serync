@@ -1,19 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SeryncLogo } from "@/components/SeryncLogo";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Waitlist } from "@clerk/clerk-react";
 
 export function WaitlistPage() {
     const currentYear = new Date().getFullYear();
-    const [email, setEmail] = useState("");
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Waitlist signup:", email);
-        alert("Thanks for joining the waitlist!");
-        setEmail("");
-    };
 
     return (
         <div className="relative min-h-screen w-full overflow-hidden bg-[#0B0F19] font-display text-white antialiased selection:bg-primary selection:text-white">
@@ -66,22 +57,9 @@ export function WaitlistPage() {
                                     <strong className="text-white font-medium">standardized agent workflow</strong> with a single push.
                                 </p>
 
-                                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-8">
-                                    <div className="relative flex-1">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <svg className="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                                        </div>
-                                        <Input
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="dev@example.com"
-                                            className="h-12 pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus-visible:ring-blue-500/50 rounded-lg text-base"
-                                        />
-                                    </div>
-                                    <Button type="submit" className="h-12 px-8 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-base shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all">
-                                        Join Waitlist &rarr;
-                                    </Button>
-                                </form>
+                                <div className="w-full max-w-md mx-auto mb-8 flex justify-center">
+                                    <Waitlist />
+                                </div>
 
                                 <p className="text-sm text-gray-500 font-medium">
                                     Awaited by developers shipping autonomous agents.
