@@ -157,7 +157,10 @@ export function WaitlistPage() {
             // Set placeholder if input exists
             if (input) {
                 input.setAttribute('placeholder', 'socket@tcp.com');
-                hasSeenForm.current = true;
+                if (!hasSeenForm.current) {
+                    console.log('[Waitlist] Form detected!');
+                    hasSeenForm.current = true;
+                }
             }
 
             // Check for Clerk's "already on waitlist" message
@@ -183,11 +186,13 @@ export function WaitlistPage() {
             }
         };
 
-        // Start polling immediately and continuously
-        pollInterval = setInterval(checkAndTrigger, 200);
+        // Start polling immediately at 100ms interval
+        pollInterval = setInterval(checkAndTrigger, 100);
 
-        // Also check immediately
+        // Also check immediately and after delays
         checkAndTrigger();
+        setTimeout(checkAndTrigger, 500);
+        setTimeout(checkAndTrigger, 1000);
 
         return () => {
             if (pollInterval) clearInterval(pollInterval);
